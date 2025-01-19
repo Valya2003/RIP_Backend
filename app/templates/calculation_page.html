@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <main class="container">
+
+        <h3  class="text-center">Черновое вычисление</h3>
+
+        <span>Сила тока: {{ calculation.amperage }} А</span>
+
+        <h4 class="text-center">Резисторы</h4>
+
+        <div class="cards-wrapper d-flex flex-column">
+
+            {% for resistor in resistors %}
+
+                {% include "resistor_card.html" %}
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+{% endblock content %}
