@@ -1,0 +1,51 @@
+{% load static %}
+
+{% if "http://localhost:8000/calculations/" in request.build_absolute_uri or "http://127.0.0.1:8000/calculations/" in request.build_absolute_uri %}
+    <div class="card w-100 mb5">
+         <div class="row g-0">
+            <div class="col-md-6 d-flex justify-center">
+                <img src="http://localhost:8000/resistors/{{ resistor.id }}/image">
+            </div>
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h5 class="card-title">{{ resistor.name }}</h5>
+                    <p class="card-text">Сопротивление: {{ resistor.resistance }}Ом</p>
+                    <div class="form-group">
+                        <label class="form-label">Напряжение</label>
+                        {% if resistor.value %}
+                            <input placeholder="Введите напряжение" disabled type="text" class="form-control" style="width: 250px" value="{{ resistor.value }}">
+                        {% else %}
+                            <input placeholder="Введите напряжение" disabled type="text" class="form-control" style="width: 250px">
+                        {% endif %}
+                    </div>
+                    <a href="/resistors/{{ resistor.id }}/" class="btn btn-primary" style="width: 100px">
+                        Открыть
+                    </a>
+                </div>
+            </div>
+         </div>
+    </div>
+{% else %}
+    <div class="card">
+        <img src="http://localhost:8000/resistors/{{ resistor.id }}/image" class="resistor-preview" alt=""/>
+        <div class="card-body" >
+            <div class="card-info">
+                <h5 class="card-title">{{ resistor.name }}</h5>
+                <p class="card-text">Сопротивление: {{ resistor.resistance }}Ом</p>
+            </div>
+            <div class="row card-btns">
+                <div class="col d-flex justify-content-center flex-grow-1">
+                    <a href="/resistors/{{ resistor.id }}" class="btn btn-primary">
+                        Открыть
+                    </a>
+                </div>
+                <form method="post" action="{% url 'add_resistor_to_draft_calculation' resistor.id %}" class="col d-flex justify-content-center">
+                    {% csrf_token %}
+                    <button class="add-btn btn btn-secondary" type="submit">
+                        Добавить
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endif %}

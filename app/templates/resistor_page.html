@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <main class="container">
+
+        <div class="row">
+            <div class="col-6">
+                <img src="http://localhost:8000/resistors/{{ resistor.id }}/image" class="resistor-image" alt=""/>
+            </div>
+            <div class="col-6 d-flex flex-md-column gap-md-3">
+
+                <h1>{{ resistor.name }}</h1>
+
+                <span>Описание: {{ resistor.description }}</span>
+
+                <span>Сопротивление: {{ resistor.resistance }}Ом</span>
+
+                <a href="/" class="return-btn btn btn-primary my-4 w-25">
+                    Назад
+                </a>
+
+            </div>
+        </div>
+
+    </main>
+{% endblock content %}
